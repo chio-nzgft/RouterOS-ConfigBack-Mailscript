@@ -1,0 +1,16 @@
+:log info "Export beginning now";
+:global  varDate ([/system clock get date]) ;
+:global  varMonth [:pick $varDate 0 3];
+:global  varDay [:pick $varDate 4 6];
+:global  varYear [:pick $varDate 7 11];
+:global backupfile ([$varMonth]."-".[$varDay]."-".[$varYear]."-export.rsc") ;
+/export file=$backupfile;
+:log info "export pausing for 20s";
+:delay 20s;
+:log info "export being emailed";
+/tool e-mail send to="monitor@test.com" subject="RouterOS configuration export" body="RouterOS configuration export file" file=$backupfile;
+:log info "export del file pausing for 120s";
+:delay 120s;
+:file remove $yesterday
+:global yesterday ([:put $backupfile])
+:log info "export finished";
