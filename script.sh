@@ -7,8 +7,10 @@
 /export file=$backupfile;
 :log info "export pausing for 20s";
 :delay 20s;
-:file remove $yesterday;
-:global yesterday ([:put $backupfile]);
+:file remove $yesterday_3;
+:global yesterday_3 ([:put $yesterday_2]);
+:global yesterday_2 ([:put $yesterday_1]);
+:global yesterday_1 ([:put $backupfile]);
 :log info "export being emailed";
 /tool e-mail send to="monitor@test.com" subject="RouterOS configuration export" body="RouterOS configuration export file" file=$backupfile;
 :log info "export del file pausing for 120s";
