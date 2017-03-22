@@ -4,15 +4,15 @@
 :global  varDay [:pick $varDate 4 6];
 :global  varYear [:pick $varDate 7 11];
 :global backupfile ([$varMonth]."-".[$varDay]."-".[$varYear]."-export.rsc") ;
+:log info "export pausing for 10s";
 /export file=$backupfile;
-:log info "export pausing for 20s";
-:delay 20s;
-:file remove $yesterday_3;
-:global yesterday_3 ([:put $yesterday_2]);
-:global yesterday_2 ([:put $yesterday_1]);
-:global yesterday_1 ([:put $backupfile]);
+:delay 10s;
 :log info "export being emailed";
-/tool e-mail send to="monitor@test.com" subject="RouterOS configuration export" body="RouterOS configuration export file" file=$backupfile;
-:log info "export del file pausing for 120s";
-:delay 120s;
+/tool e-mail send to="monitor@dingyue.com.tw" subject="RouterOS Taichung configuration export" body="configuration export file" file=$backupfile;
+:delay 20s;
 :log info "export finished";
+:global yesterday3 [:put $yesterday2];
+:global yesterday2 [:put $yesterday1];:
+:global yesterday1 [:put $backupfile];
+:file remove $yesterday3;
+:log info "delete yesterday3";
